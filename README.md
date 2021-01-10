@@ -59,3 +59,9 @@
 # creating img form runing container
     docker container commit --author "Taha Khan" -m "this is test commit" {container ID} {new image name}
     docker image ls (new imge should be in list)
+
+# Docker File
+    FROM ubuntu:16.04 (this name of base img)
+    "docker image build -t myubuntu:1 ." => this will create img from docker file "." means docker file is in current working directory.
+    "docker image ls " you img should be there. 
+
