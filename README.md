@@ -65,3 +65,45 @@
     "docker image build -t myubuntu:1 ." => this will create img from docker file "." means docker file is in current working directory.
     "docker image ls " you img should be there. 
 
+# Persist Data
+    data persist in docker has two main methods 
+    1)volume
+    2)bind mount
+    3)tempfs mount
+# To list all volums
+    docker volume ls
+
+# To create volume 
+    docker create volume {volume name}
+# To remove volume
+    docker volume rm {volume name}
+    can not delete any volume if its container is present either runing condition or exited.
+# To remove all unused volums
+    docker volume prune 
+# Bind mount
+    in bind mount we can mount folder from host mechine into container.
+    "docker container run -it -v /host_bind_folder:/temp/test ubuntu:14.04 bash"
+    here we share /host_bind_folder with ubbuntu mechine, 
+    host mechine path should be full path.other wise it will create volume
+    to binding current folder
+    "docker container run -it -v $(pwd):/temp/test ubuntu:14.04 bash"
+                        OR
+    "docker container run -it --mount type=bind,source=$(pwd),target=/temp/test/ ubuntu:14.04 absh"
+# Docker Networking
+    "docker network ls"
+    to list networks, 
+    by default every container use bridge network
+# To inspact networks
+    "docker network inspact bridge"
+
+    "docker network create -d bridge test", it will create new network "test" with bridge driver
+    "docker network ls" will list down newly created network.
+    "ifconfig" on host mechine will show one more netwok having br in starting of name
+    br means it is bridge network.
+    "docker container run -it --network test ubuntu:14.04 bash" it will run container with specified network.
+    "ifconfig" can see eth0, then "ifconfig" on host will show veth network
+    once container stop "veth" on host mechine will not be present.
+    
+
+     
+
