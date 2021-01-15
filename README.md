@@ -103,7 +103,36 @@
     "docker container run -it --network test ubuntu:14.04 bash" it will run container with specified network.
     "ifconfig" can see eth0, then "ifconfig" on host will show veth network
     once container stop "veth" on host mechine will not be present.
-    
+# DNS
+    in defaults networks no dns is conigured
+    but custom network dns already be enabbled.
+# Host network
+    If you use the host network mode for a container, that container’s network stack is not isolated from the Docker host (the container shares the host’s networking namespace)
+
+    e.g
+    "docker container run -it --network=host nginx"
+    then open browser and open localhost you will get nginx welcome page
+    from host ip addres, with out maping ports as you was doing in bridge network.
+
+    the host deiver can only be attach with only one network, mean if any network is created with host drive so you can not create new network with host driver.
+    "docker network create -d host test" 
+        output >>>>
+    Error response rom deamon: only one instance of "host" network is allowed.
+
+# Null network
+    If you want to completely disable the networking stack on a container, you can use the --network none flag when starting the container. Within the container, only the loopback device is created.
+
+# Container with multiple networks
+    "docker network connect {network name} {container ID}" it will add another network in conainer
+    "dockerr network disconnect {network name} {container ID}" it will disconnect network form container
+
+    by this way you can connect and disconnect networks from containers.
+
+
+# Docker Compose
+    docker compose is use to run multi container application.
+
+
 
      
 
