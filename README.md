@@ -129,8 +129,30 @@
     by this way you can connect and disconnect networks from containers.
 
 
-# Docker Compose
+# >>>>>>>>>>>>Docker Compose<<<<<<<<<<
     docker compose is use to run multi container application.
+
+    lets create nginx containe with docker compose.
+    create docker-ccompose.yml file,
+        first we define version
+        then we define services,
+    to run compose "docker-compose up -d" it will create all containers.
+    "docker-composer down" it will stop all containers
+    if you run again docker composer it will only run old container again,
+  >>> if you change any port or other things so container will be recreat that container only.
+    if you define custom name of "docker-compose.yml" 
+    so you can run "docker-compose -f {file name} up -d"
+  >>> you can also create json file for docker compose.
+
+# To create container from compose
+    "docker-compose create" it will only create containers according to .yml file
+        OR
+    "docker-compose up  --no-start" 
+
+    "docer-compopse start" it will start created containers.
+
+# Docker compose scale, top
+    "docker-compose scale webapp1=2 webapp2=4" it will run multiple containers
 
 
 
