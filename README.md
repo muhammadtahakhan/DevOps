@@ -128,6 +128,23 @@
 
     by this way you can connect and disconnect networks from containers.
 
+# Link
+    There are two ways to establish communication between containers: Docker networking and Docker container linking.
+    We can launch one Docker container that will be running the Database Server.
+    We will launch the second Docker container (Web Server) with a link flag to the container launched in Step 1. This way, it will be able to talk to the Database Server via the link name.
+    This is a generic and portable way of linking the containers together rather than via the networking port
+
+    docker pull redis
+    docker run -d --name redis1 redis
+
+    Now, let us run a another container, a busybox container 
+
+    docker run -it --link redis1:redis --name redisclient1 busybox
+    The value provided to the — link flag is sourcecontainername:containeraliasname.
+
+    Let us observe first what entry has got added in the /etc/hosts file of the redisclient1 container:
+    cat /etc/hosts
+
 
 # >>>>>>>>>>>>Docker Compose<<<<<<<<<<
     docker compose is use to run multi container application.
