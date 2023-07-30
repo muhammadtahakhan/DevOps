@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  mariadb:
+    image: mariadb:${MARIADB_VERSION:-latest}
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    container_name: "${MARIADB_NAME}"
+  postgres_db:
+    container_name: "${POSTGRES_NAME}"
+    image: "postgres:14"
+    ports:
+      - 0.0.0.0:5432:5432
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POST_DB_USERNAME}
+      - POSTGRES_PASSWORD=${POST_DB_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB} 
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mariadb
+    container_name: "${ADMINER_NAME}"
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_contaner
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass ""
+    volumes: 
+      - ./redis-data:/data
+ 
+ 
